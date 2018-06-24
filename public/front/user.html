@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" href="favicon.ico">
+  <link rel="stylesheet" href="lib/fa/css/font-awesome.css">
+  <link rel="stylesheet" href="lib/mui/css/mui.css">
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/user.css">
+ 
+  <title>乐淘商城</title>
+</head>
+
+<body>
+  <div class="lt_container">
+    <!-- 头部 -->
+    <div class="lt_header">
+      <div>
+        <a href="index.html" class="lt_left">
+          <span class="fa fa-home"></span>
+        </a>
+
+      </div>
+      <div class="title">乐淘商城</div>
+      <div>
+        <a href="msearch.html" class="lt_right">
+          <span class="fa fa-search"></span>
+        </a>
+      </div>
+    </div>
+    <!-- 内容部分 -->
+    <div class="lt_content">
+      <ul class="mui-table-view">
+          <li class="mui-table-view-cell user_info">
+           <!-- 挖个坑 -->
+            
+          </li>
+        <li class="mui-table-view-cell">
+            <a class="mui-navigate-right">账号与安全</a>
+        </li>
+        <li class="mui-table-view-cell">
+            <a class="mui-navigate-right">我的购物车</a>
+        </li>
+        <li class="mui-table-view-cell">
+            <a class="mui-navigate-right">收货地址管理</a>
+        </li>
+    </ul>
+    <input type="button" value="退出" class="exit_btn">
+    </div>
+    <div class="lt_footer">
+      <ul class="mui-clearfix">
+        <li>
+          <a href="#">
+            <span class="fa fa-home"></span>
+            <p>首页</p>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="fa fa-navicon"></span>
+            <p>分类</p>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="fa fa-shopping-cart"></span>
+            <p>购物车</p>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="now">
+            <span class="fa fa-user"></span>
+            <p>会员中心</p>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+
+  </div>
+  <script type="text/html" id="tpl">
+    <img src="images/user.jpg"  class="mui-pull-left">
+    <div class="mui-pull-left">
+    <p>{{username}}</p>
+    <span>绑定手机号：{{mobile}}</span>
+   </div>
+  
+  
+  
+  </script>
+  <script src="lib/mui/js/mui.js"></script>
+  <script src="lib/zepto/zepto.min.js"></script>
+  <script src="js/common.js"></script>
+  <script src="lib/artTemplate/template-web.js"></script>
+  <script src="js/user.js"></script>
+</body>
+
+</html>

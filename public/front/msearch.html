@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" href="favicon.ico">
+  <link rel="stylesheet" href="lib/fa/css/font-awesome.css">
+  <link rel="stylesheet" href="lib/mui/css/mui.css">
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/msearch.css">
+  <title>乐淘商城</title>
+</head>
+
+<body>
+  <div class="lt_container">
+    <!-- 头部 -->
+    <div class="lt_header">
+      <div>
+        <a href="javascript:history.go(-1);" class="lt_left">
+          <span class="fa fa-arrow-left"></span>
+        </a>
+
+      </div>
+      <div class="title">搜索商品</div>
+
+    </div>
+    <!-- 内容部分 -->
+    <div class="lt_content">
+      <!-- 区域滚动 -->
+      <div class="mui-scroll-wrapper">
+        <div class="mui-scroll">
+          <!--这里放置真实显示的DOM内容-->
+          <div class="lt_search">
+            <input type="text" placeholder="请输入搜索关键字">
+            
+              <input type="button" value="搜索" class="mui-btn mui-btn-blue search_btn">
+            
+          </div>
+          <div class="search_content">
+            <!-- 挖个大坑 -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="lt_footer">
+      <ul class="mui-clearfix">
+        <li>
+          <a href="#">
+            <span class="fa fa-home"></span>
+            <p>首页</p>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="fa fa-navicon"></span>
+            <p>分类</p>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="fa fa-shopping-cart"></span>
+            <p>购物车</p>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="fa fa-user"></span>
+            <p>会员中心</p>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- 历史记录的模板引擎 -->
+  <script type="text/html" id="tpl">
+    {{if  rows.length=="0"}}
+       <p>没有搜索历史</p>
+    {{/if}}
+    {{if rows.length>0}}
+   
+        <div class="title mui-clearfix">
+          <span class="mui-pull-left">搜索历史</span>
+          <span class="fa fa-trash mui-pull-right remove_btn">清除记录</span>
+        </div>
+        <div class="content_list">
+          <ul>
+            {{each rows v i}}
+            <li>
+              <i class="mui-icon mui-icon-closeempty remove_icon" data-index="{{i}}"></i>
+              <a href="searchList.html?key={{v}}">{{v}}</a>
+
+            </li>
+            {{/each}}
+          </ul>
+        </div>
+
+
+
+   {{/if}}
+  
+  </script>
+
+  <script src="lib/mui/js/mui.js"></script>
+  <script src="lib/zepto/zepto.min.js"></script>
+  <script src="lib/artTemplate/template-web.js"></script>
+  <script src="js/msearch.js"></script>
+</body>
+
+</html>

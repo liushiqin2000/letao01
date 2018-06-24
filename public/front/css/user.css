@@ -1,0 +1,13 @@
+.lt_content img{
+  display: block;
+  width: 42px;
+  height: 42px;
+  margin-right: 10px;
+}
+.exit_btn{
+  width: 100%;
+  margin-top: 10px;
+}
+.lt_content{
+  padding: 0 10px;
+}

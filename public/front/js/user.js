@@ -1,0 +1,24 @@
+//通过用户登录成功过来发送的参数动态渲染页面。
+$.ajax({
+  type:"get",
+  url:"/user/queryUserMessage",
+  success:function(info){
+    console.log(info);
+    var html=template("tpl",info);
+    $(".user_info").html(html);
+  }
+})
+//点击退出按钮发送ajax请求。清除用户信息跳转到登录页。
+$(".exit_btn").on("click",function(){
+  console.log(22);
+  $.ajax({
+    type:"get",
+    url:"/user/logout",
+    success:function(info){
+      console.log(info);
+      if(info.success){
+        window.location.href="login.html";
+      }
+    }
+  })
+})
