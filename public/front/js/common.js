@@ -1,8 +1,27 @@
-// 封装一个获取localstorage本地历史的函数getHistory();
-function getHistory(){
-  var history=localStorage.getItem("lt_history") || "[]";
-  var arr=JSON.parse(history);
-  return arr;//将获取到了历史记录返回
+// 用户搜索的已经key值传输过来；
+
+//功能：进行参数的转码代码
+function getSearch() {
+  var key = location.search;
+  // 传输的key值是转码了的，所以我们需要转化成数组
+
+  key = decodeURI(key);
+
+  key = key.slice(1);
+  // var result=key.split();
+
+  var result = key.split("&");
+  var obj = {};
+
+
+  result.forEach(function (e, i) {
+
+    var k = e.split("=")[0];
+    var v = e.split("=")[1];
+    obj[k] = v;
+  });
+  return obj;
+
 };
 //设置区域滚动
 mui('.mui-scroll-wrapper').scroll({

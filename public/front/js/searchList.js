@@ -1,141 +1,103 @@
-// //设置区域滚动在公共类
-
-// 通过用户发送的值。来渲染
-var proName = getSearch().key;
-
-$(".lt_search input[type='text']").val(proName);
-var page = 1;
-var pageSize = 2;
-// --------定义全局变量
+//根据 用户搜索的页面传入的参数，动态渲染页面
+var page=1;
+var pageSize=4;
+var key=getSearch().key;
+//获取用户搜索的内容
+// console.log(key);
+$(".lt_search input[type='text']").val(key);//设置给input框
+//下拉刷新
 mui.init({
-  pullRefresh: {
-    container: ".mui-scroll-wrapper",//下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
-    down: {
-      auto: true,
-      //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
-      callback: function () {
-        page = 1;
-        render(function (info) {
-          //下拉的时候只渲染第一页。
-          var html = template("tpl", info);
-          $(".lt_product ul").html(html);
-          //  手动关闭刷新
-          // console.log(mui('.mui-scroll-wrapper').pullRefresh())
-          mui('.mui-scroll-wrapper').pullRefresh().endPulldownToRefresh();
-           //重置上拉加载
-           mui(".mui-scroll-wrapper").pullRefresh().refresh(true);
+  pullRefresh : {
+    container:".mui-scroll-wrapper",
+    down : {
+      auto: true,//可选,默认false.首次加载自动下拉刷新一次
+      callback :function(){
+         page=1;
+         render(function(info){
+           var html=template("tpl",info);
+           $(".lt_product ul").html(html);
+           //渲染结束后手动结束下拉刷新。
+           mui('.mui-scroll-wrapper').pullRefresh().endPulldownToRefresh();
+           //渲染后重置下拉加载的功能
+           mui('.mui-scroll-wrapper').pullRefresh().refresh();
 
-        })
+         });
       }
     },
     up: {
-      //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
-      callback: function () {
-        //上拉加载的时候page++；
-        page++;
-        render(function (info) {
-          // console.log(info);
-          // console.log(info.data.length);
-          var html = template("tpl", info);
-          $(".lt_product ul").append(html);
-          if (info.data.length == "0") {
-            mui('.mui-scroll-wrapper').pullRefresh().endPullupToRefresh();
-          } else {
-            mui('.mui-scroll-wrapper').pullRefresh().endPullupToRefresh();
-          }
-        })
+      auto: false,//可选,默认false.首次加载自动下拉刷新一次
+      callback :function(){
+         page++;
+         render(function(info){
+           if(info.data.length==0){
+             //当length等于0的时候说明没有更多数据。停止上拉加载。参数传入true。
+            mui('.mui-scroll-wrapper').pullRefresh().endPullupToRefresh(true);
+           }else{
+            //  其他的时候。说明还有数据，就传入false
+            mui('.mui-scroll-wrapper').pullRefresh().endPullupToRefresh(false);
+           }
+           var html=template("tpl",info);
+           $(".lt_product ul").append(html);
+           
+    
+         });
       }
-    },
-
+    }
   }
 });
-// 用户搜索的已经key值传输过来；
 
-//功能：进行参数的转码代码
-function getSearch() {
-  var key = location.search;
-  // 传输的key值是转码了的，所以我们需要转化成数组
-
-  key = decodeURI(key);
-
-  key = key.slice(1);
-  // var result=key.split();
-
-  var result = key.split("&");
-  var obj = {};
-
-
-  result.forEach(function (e, i) {
-
-    var k = e.split("=")[0];
-    var v = e.split("=")[1];
-    obj[k] = v;
-  });
-  return obj;
-
-};
-
-function render(callback) {
-  // $(".lt_product ul").html("<div class='loading'></div>");
-  var obj = {
-    page: page,
-    pageSize: pageSize,
-    proName: proName
+//封装的渲染的函数
+function render(callback){
+  //因为涉及多个参数的变更，所以使用对象
+  var obj={
+    page:page,
+    pageSize:pageSize,
+    proName:key
+  };
+  //进行判断看是否需要排序，如果有now说明需要排序
+  var isSelected=$(".choiceList li.now");
+ 
+  if(isSelected.length>0){
+    var k=isSelected.data("type");  //获取点击的li的type类型
+    var v=isSelected.find("i").hasClass("fa-angle-up")?1:2;//通过箭头的类型来判断是升序还是降序
+    obj[k]=v;
   }
-  //判断是否添加price或者num参数。
-  var isSelect = $(".choiceList li.now");
-  if (isSelect.length > 0) {
-
-    var type = isSelect.data("type");
-    var value = isSelect.find("i").hasClass("fa-angle-up") ? 1 : 2;
-    obj[type] = value;
-  } else {
-    console.log("不需要排序")
-  }
-
-
+   
   $.ajax({
-    type: "get",
-    url: "/product/queryProduct",
-    data: obj,
-    success: function (info) {
-      setTimeout(function () {
+    type:"get",
+    url:"/product/queryProduct",
+    data:obj,
+    success:function(info){
+      //模仿延迟的效果。
+      setTimeout(function(){
         callback(info);
-      }, 1000);
-
-
-
+      },1000);
+      
     }
   });
-};
-
-// 给搜索按钮注册点击功能，根据用户输入的内容跳转页面再重新渲染。
-$(".search_btn").on("click", function () {
-  // 点击搜索按钮的时候，手动刷新
-  mui('.mui-scroll-wrapper').pullRefresh().endPulldownToRefresh();
-  var txt = $(".lt_search input[type='text']").val();
-  location.href = "searchList.html?key=" + txt;
-
-});
-// 给choiceList里面的价格和库存注册事件
-$(".choiceList li[data-type]").on("tap", function () {
-
-  var $this = $(this);
-  //添加now类和切换下箭头
-  if (!$this.hasClass("now")) {
-    $this.addClass("now").siblings().removeClass("now");
-    $(".choiceList li i").addClass("fa-angle-down").removeClass("fa-angle-up");
-  }else{
-    $(".choiceList li.now").find("i").toggleClass("fa-angle-down").toggleClass("fa-angle-up");
-   
-  }
-  
-  // 点击的时候重新手动加载
-  mui(".mui-scroll-wrapper").pullRefresh().pulldownLoading();
-   
 
 
 
+}
+//点击搜索按钮的时候，手动下拉刷新一次。
+$(".search_btn").on("click",function(){
+  console.log(mui('.mui-scroll-wrapper').pullRefresh());
+  mui('.mui-scroll-wrapper').pullRefresh().pulldownLoading();
+ 
 })
+//点击排序按钮，重新渲染。
+$(".choiceList li[data-type]").on("tap",function(){
+  if($(this).hasClass("now")){
+    //有now的这个类，切换上下箭头
+    $(this).find("i").toggleClass("fa-angle-down").toggleClass("fa-angle-up");
+  }else{
+    $(this).addClass("now").siblings().removeClass("now");
+    // 让所有图标的箭头向下
+    $(".choiceList li").find("i").removeClass("fa-angle-up").addClass("fa-angle-down");
+ 
 
+  };
+  mui('.mui-scroll-wrapper').pullRefresh().pulldownLoading();
+  
+})
 

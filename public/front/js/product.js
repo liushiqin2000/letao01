@@ -53,6 +53,14 @@ $(".add_cart").on("click",function(){
   var selectedSize=$(".size span.now").text();
   // 选择的双数
   var selectedNum=$(".num input[type='number']").val();
+  if(!selectedSize){
+    mui.toast('请选择尺码',{ duration:'long', type:'div' });
+    return;
+  }
+  // if(!selectedNum){
+  //   mui.toast('请选择数量',{ duration:'long', type:'div' });
+  //   return;这个校验可以不要，因为数量框设置的最小值都是一双
+  // }
 
   console.log(selectedSize);
   console.log(selectedNum);
@@ -70,7 +78,14 @@ $(".add_cart").on("click",function(){
         //这个back参数的传入是为了登陆以后看是继续跳到详情页还是其他
         window.location.href="login.html?back="+location.href;
       }else{
-        mui.toast('加入购物车成功',{ duration:'long', type:'div' }) 
+        mui.confirm('加入购物车成功',"温馨提醒",["查看购物车","继续浏览"],function(e){
+          console.log(e.index);
+          if(e.index==0){
+            //通过e.index的数值判断用户点击的是什么按钮，如果是0的话说明用户选择查看购物车。跳转到购物车页面
+            window.location.href="shopCart.html";
+          }
+          
+        }) 
       }
       
     }

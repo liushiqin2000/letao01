@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" href="favicon.ico">
+  <link rel="stylesheet" href="lib/fa/css/font-awesome.css">
+  <link rel="stylesheet" href="lib/mui/css/mui.css">
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/shopCart.css">
+  <title>乐淘商城</title>
+</head>
+
+<body>
+  <div class="lt_container">
+    <!-- 头部 -->
+    <div class="lt_header">
+      <div>
+        <a href="javascript:history.go(-1);" class="lt_left">
+          <span class="fa fa-arrow-left"></span>
+        </a>
+
+      </div>
+      <div class="title">我的购物车</div>
+
+    </div>
+    <!-- 内容部分 -->
+    <div class="lt_content">
+      <!-- 区域滚动 -->
+      <div class="mui-scroll-wrapper">
+        <div class="mui-scroll">
+          <!--这里放置真实显示的DOM内容-->
+          <ul id="OA_task_2" class="mui-table-view">
+            
+        
+            <!-- 挖个坑 -->
+          
+          </ul>
+
+
+        </div>
+      </div>
+    </div>
+    <div class="lt_money">
+      <div class="total_money mui-pull-left">
+        <span>订单总金额</span>
+        <span class="total_price">&yen;0.00元</span>
+      </div>
+      <div class="order mui-pull-right">
+        <a href="#">生成订单</a>
+      </div>
+    </div>
+    <div class="lt_footer">
+      <ul class="mui-clearfix">
+        <li>
+          <a href="index.html">
+            <span class="fa fa-home"></span>
+            <p>首页</p>
+          </a>
+        </li>
+        <li>
+          <a href="searchList.html">
+            <span class="fa fa-navicon"></span>
+            <p>分类</p>
+          </a>
+        </li>
+        <li>
+          <a href="shopCart.html" class="now">
+            <span class="fa fa-shopping-cart"></span>
+            <p>购物车</p>
+          </a>
+        </li>
+        <li>
+          <a href="user.html">
+            <span class="fa fa-user"></span>
+            <p>会员中心</p>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- 历史记录的模板引擎 -->
+  <script type="text/html" id="tpl">
+     {{each info v i}}
+    <li class="mui-table-view-cell">
+      <div class="mui-slider-right mui-disabled">
+  
+        <a class="mui-btn mui-btn-blue mui-icon mui-icon-compose delete_btn" data-id={{v.id}} data-size="{{v.size}}" data-num='{{v.num}}' data-product-size={{v.productSize
+        }}
+        ></a>
+        <a class="mui-btn mui-btn-red mui-icon mui-icon-trash remove_btn" data-id={{v.id}}></a>
+      </div>
+      <div class="mui-slider-handle">
+        <div class="mui-table-cell">
+           <div class="shopCart_left">
+             <img src="{{v.pic[0].picAddr}}" alt="">
+           </div>
+           <div class="shopCart_right">
+                <p class="mui-ellipsis-2">{{v.proName}}</p>
+                <div class="price">
+                  <span class="newPrice">&yen;{{v.price}}</span>
+                  <span class="oldPrice">&yen;{{v.oldPrice}}</span>
+                  <span class="num mui-pull-right">{{v.num}}</span>
+                </div>
+                <div class="size">码数:&nbsp;{{v.size}}</div>
+               
+           </div>
+           <div>
+             <input type="checkbox" class="btn_check" data-num="{{v.num}}" data-price="{{v.price}}" data-id='{{v.id}}'>
+           </div>
+
+
+        </div>
+      </div>
+    </li>
+    {{/each}}
+  </script>
+  <script type="text/html" id="tpl2">
+    <div class="lt_edit_size">
+    尺码：
+    <%
+    var temp=productSize.split("-");
+    for(var i=temp[0];i<temp[1];i++){
+    %>
+    <span class="{{i==size?'now':''}}">{{i}}</span>
+     
+   <%}%>
+   
+   <div class="mui-numbox" data-numbox-step='1' data-numbox-min='1'  data-numbox-max='100'>
+    <button class="mui-btn mui-numbox-btn-minus" type="button">-</button>
+    <input class="mui-numbox-input" type="number" value="1"/>
+    <button class="mui-btn mui-numbox-btn-plus" type="button">+</button>
+  </div>
+  </div>
+  
+  </script>
+
+
+  <script src="lib/mui/js/mui.js"></script>
+  <script src="lib/zepto/zepto.min.js"></script>
+  <script src="lib/artTemplate/template-web.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/shopCart.js"></script>
+</body>
+
+</html>

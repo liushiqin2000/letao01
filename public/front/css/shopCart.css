@@ -1,0 +1,72 @@
+.shopCart_left img{
+  display: block;
+  width: 60px;
+  height: 60px;
+}
+.shopCart_left{
+  float: left;
+  margin-right: 10px;
+}
+.shopCart_right{
+  overflow: hidden;
+}
+.shopCart_right p{
+  height: 40px;
+}
+.shopCart_right .price{
+  font-size: 15px;
+  padding-top: 10px;
+}
+.price .newPrice{
+  color: red;
+}
+.price .oldPrice{
+  color: #666;
+  text-decoration: line-through;
+}
+.shopCart_right .size{
+  font-size:14px;
+  color: #333; 
+}
+.lt_money{
+  width: 100%;
+  height: 30px;
+  background-color: #ccc;
+  position: absolute;
+  bottom: 55px;
+  left: 0;
+  z-index: 997;
+  padding-left:10px ;
+  line-height: 30px;
+  font-size:13px;
+ 
+
+ 
+}
+.lt_container{
+  padding-bottom: 85px;
+}
+.total_money span:last-child{
+  margin-left: 5px;
+  color: rgb(179, 52, 52);
+}
+.order{
+  background-color: red;
+  padding: 0 10px;
+}
+.mui-table-cell{
+  display: block;
+}
+.lt_edit_size span{
+  font-size: 12px;
+  color:#333;
+  background-color: #ccc;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+.lt_edit_size{
+  line-height: 45px;
+}
+.lt_edit_size span.now{
+  background-color: pink;
+}

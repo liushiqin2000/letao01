@@ -31,7 +31,7 @@
 }
 .lt_content .lt_product li:nth-child(odd){
    margin-left: 5px;
-   margin-right: 42px;
+   margin-right: 5%;
 }
 .lt_content .lt_product li:nth-child(even){
   margin-left: 5px;

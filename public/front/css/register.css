@@ -1,0 +1,19 @@
+.lt_content {
+  padding: 10px 10px;
+}
+input.code{
+  width: 65%;
+}
+.mui-input-row .mui-btn{
+  width: 30%;
+}
+.register_btn{
+  width: 100%;
+  line-height: 33px;
+}
+.userService,.login-now{
+  font-size: 12px;
+}
+button.code_btn.disabled{
+  background-color: #ccc;
+}
